@@ -1,0 +1,11 @@
+# 컴파일 결과물
+defense-app
+a.out
+
+# 맥북 환경 설정 파일
+.DS_Store
+
+# 도커 빌드 시 생길 수 있는 임시 파일
+*.o
+
+defense.md
