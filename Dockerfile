@@ -1,17 +1,19 @@
 # 1단계: 빌드 환경
 FROM gcc:13.2 AS builder
 
-# 컨테이너 내부의 작업 디렉토리를 /app으로 설정
+# [중요] 여기에 넣으세요! 
+# 코드를 복사하기 전에 환경을 먼저 구축합니다.
+RUN apt-get update && apt-get install -y libeigen3-dev
+
 WORKDIR /app
 
-# 현재 내 맥북의 c++_DEFENSE 폴더에 있는 모든 파일을 컨테이너 안의 /app으로 복사
+# 이후에 코드를 복사합니다.
 COPY . .
 
-# [수정포인트] main.cpp 대신 while_for.cpp를 빌드합니다.
-# 출력물 이름도 프로젝트 성격에 맞춰 'defense_monitor'로 바꿔보겠습니다.
-RUN g++ -o defense_monitor while_for.cpp -static-libstdc++ -static-libgcc
+# 빌드 시 Eigen 헤더 위치를 알려주기 위해 -I /usr/include/eigen3 를 추가해야 할 수도 있습니다.
+RUN g++ -o defense_monitor while_for.cpp -static-libstdc++ -static-libgcc -I /usr/include/eigen3
 
-# 2단계: 실행 환경 (용량 최적화)
+# 2단계: 실행 환경
 FROM debian:bookworm-slim
 WORKDIR /app
 
