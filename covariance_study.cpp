@@ -4,8 +4,13 @@
 int main(){
 
     Eigen::Matrix2d P = Eigen::Matrix2d::Identity() * 0.1;
-    Eigen::Matrix2d Q = Eigen::Matrix2d::Identity() * 0.5;
+    Eigen::Matrix2d Q = Eigen::Matrix2d::Zero();
 
+    Q(0, 0) = 0.1;
+    Q(1, 1) = 0.1;
+
+    std::cout << "--- 수정된 노이즈 행렬 (Q) ---" << std::endl;
+    std::cout << Q << std::endl;
 
     std::cout <<"--- 작전 시작:: 초기 불확실성 ---" << std::endl;
     std::cout <<P<< std::endl;
